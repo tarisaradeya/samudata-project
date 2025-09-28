@@ -1,0 +1,10 @@
+FROM php:8.2-apache
+
+# Install ekstensi PHP untuk MySQL
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+# Copy semua file ke folder web server
+COPY . /var/www/html/
+
+# Aktifkan mod_rewrite kalau pakai .htaccess
+RUN a2enmod rewrite

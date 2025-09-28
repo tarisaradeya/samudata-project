@@ -1,0 +1,68 @@
+[Sun Sep 28 06:31:15 2025] PHP 8.1.2-1ubuntu2.22 Development Server (http://0.0.0.0:8000) started
+[Sun Sep 28 06:31:21 2025] 127.0.0.1:40170 Accepted
+[Sun Sep 28 06:31:21 2025] 127.0.0.1:40170 [200]: GET /
+[Sun Sep 28 06:31:21 2025] 127.0.0.1:40170 Closing
+[Sun Sep 28 06:31:30 2025] 10.132.249.1:46474 Accepted
+[Sun Sep 28 06:31:30 2025] 10.132.249.1:46474 [200]: GET /
+[Sun Sep 28 06:31:30 2025] 10.132.249.1:46474 Closing
+[Sun Sep 28 06:31:30 2025] 10.132.249.1:46476 Accepted
+[Sun Sep 28 06:31:30 2025] 10.132.249.1:46476 [404]: GET /favicon.ico - No such file or directory
+[Sun Sep 28 06:31:30 2025] 10.132.249.1:46476 Closing
+[Sun Sep 28 06:31:32 2025] 10.132.249.1:42808 Accepted
+[Sun Sep 28 06:31:32 2025] 10.132.249.1:42808 [200]: GET /login.html
+[Sun Sep 28 06:31:32 2025] 10.132.249.1:42808 Closing
+[Sun Sep 28 06:31:51 2025] 10.132.249.1:55938 Accepted
+[Sun Sep 28 06:31:51 2025] 10.132.249.1:55938 [200]: GET /dashboard.html
+[Sun Sep 28 06:31:51 2025] 10.132.249.1:55938 Closing
+[Sun Sep 28 06:31:51 2025] 10.132.249.1:55952 Accepted
+[Sun Sep 28 06:31:51 2025] 10.132.249.1:55952 [200]: GET /js/dashboard.js
+[Sun Sep 28 06:31:51 2025] 10.132.249.1:55952 Closing
+[Sun Sep 28 06:32:14 2025] 10.132.249.1:46294 Accepted
+[Sun Sep 28 06:32:14 2025] 10.132.249.1:46294 [200]: GET /files.html
+[Sun Sep 28 06:32:14 2025] 10.132.249.1:46294 Closing
+[Sun Sep 28 06:32:14 2025] 10.132.249.1:46308 Accepted
+[Sun Sep 28 06:32:14 2025] 10.132.249.1:46308 [200]: GET /js/files.js
+[Sun Sep 28 06:32:14 2025] 10.132.249.1:46308 Closing
+[Sun Sep 28 06:32:40 2025] 10.132.249.1:51570 Accepted
+[Sun Sep 28 06:32:40 2025] 10.132.249.1:51570 [200]: GET /files.html
+[Sun Sep 28 06:32:40 2025] 10.132.249.1:51570 Closing
+[Sun Sep 28 06:32:40 2025] 10.132.249.1:51584 Accepted
+[Sun Sep 28 06:32:40 2025] 10.132.249.1:51584 [200]: GET /js/files.js
+[Sun Sep 28 06:32:40 2025] 10.132.249.1:51584 Closing
+[Sun Sep 28 06:32:48 2025] 10.132.249.1:56210 Accepted
+[Sun Sep 28 06:32:48 2025] 10.132.249.1:56210 [200]: GET /upload.html
+[Sun Sep 28 06:32:48 2025] 10.132.249.1:56210 Closing
+[Sun Sep 28 06:33:02 2025] 10.132.249.1:33742 Accepted
+[Sun Sep 28 06:33:02 2025] 10.132.249.1:33742 [200]: GET /histori-log.html
+[Sun Sep 28 06:33:02 2025] 10.132.249.1:33742 Closing
+[Sun Sep 28 06:33:02 2025] 10.132.249.1:33758 Accepted
+[Sun Sep 28 06:33:02 2025] 10.132.249.1:33758 [200]: GET /js/histori-log.js
+[Sun Sep 28 06:33:02 2025] 10.132.249.1:33758 Closing
+[Sun Sep 28 06:33:03 2025] 10.132.249.1:33762 Accepted
+[Sun Sep 28 06:33:03 2025] PHP Fatal error:  Cannot redeclare FileManager::logFileAccess() in /home/ubuntu/samudata-project/samudata-project/database_config.php on line 699
+[Sun Sep 28 06:33:03 2025] 10.132.249.1:33762 [500]: GET /api/files.php?action=log_stats - Cannot redeclare FileManager::logFileAccess() in /home/ubuntu/samudata-project/samudata-project/database_config.php on line 699
+[Sun Sep 28 06:33:03 2025] 10.132.249.1:33762 Closing
+[Sun Sep 28 06:33:03 2025] 10.132.249.1:33768 Accepted
+[Sun Sep 28 06:33:03 2025] PHP Fatal error:  Cannot redeclare FileManager::logFileAccess() in /home/ubuntu/samudata-project/samudata-project/database_config.php on line 699
+[Sun Sep 28 06:33:03 2025] 10.132.249.1:33768 [500]: GET /api/files.php?action=logs&start_date=2025-08-29&end_date=2025-09-28&action_filter= - Cannot redeclare FileManager::logFileAccess() in /home/ubuntu/samudata-project/samudata-project/database_config.php on line 699
+[Sun Sep 28 06:33:03 2025] 10.132.249.1:33768 Closing
+[Sun Sep 28 06:33:12 2025] 10.132.249.1:49678 Accepted
+[Sun Sep 28 06:33:12 2025] 10.132.249.1:49678 [200]: GET /permintaan-file.html
+[Sun Sep 28 06:33:12 2025] 10.132.249.1:49678 Closing
+[Sun Sep 28 06:33:12 2025] 10.132.249.1:49684 Accepted
+[Sun Sep 28 06:33:12 2025] 10.132.249.1:49684 [200]: GET /js/permintaan-file.js
+[Sun Sep 28 06:33:12 2025] 10.132.249.1:49684 Closing
+[Sun Sep 28 06:33:14 2025] 10.132.249.1:49694 Accepted
+[Sun Sep 28 06:33:14 2025] PHP Fatal error:  Cannot redeclare FileManager::logFileAccess() in /home/ubuntu/samudata-project/samudata-project/database_config.php on line 699
+[Sun Sep 28 06:33:14 2025] 10.132.249.1:49694 [500]: GET /api/files.php?action=requests&status_filter=&priority_filter=&category_filter= - Cannot redeclare FileManager::logFileAccess() in /home/ubuntu/samudata-project/samudata-project/database_config.php on line 699
+[Sun Sep 28 06:33:14 2025] 10.132.249.1:49694 Closing
+[Sun Sep 28 06:33:14 2025] 10.132.249.1:49704 Accepted
+[Sun Sep 28 06:33:14 2025] PHP Fatal error:  Cannot redeclare FileManager::logFileAccess() in /home/ubuntu/samudata-project/samudata-project/database_config.php on line 699
+[Sun Sep 28 06:33:14 2025] 10.132.249.1:49704 [500]: GET /api/files.php?action=request_stats - Cannot redeclare FileManager::logFileAccess() in /home/ubuntu/samudata-project/samudata-project/database_config.php on line 699
+[Sun Sep 28 06:33:14 2025] 10.132.249.1:49704 Closing
+[Sun Sep 28 06:33:23 2025] 10.132.249.1:34362 Accepted
+[Sun Sep 28 06:33:23 2025] 10.132.249.1:34362 [200]: GET /pengaturan-akun.html
+[Sun Sep 28 06:33:23 2025] 10.132.249.1:34362 Closing
+[Sun Sep 28 06:33:23 2025] 10.132.249.1:34374 Accepted
+[Sun Sep 28 06:33:23 2025] 10.132.249.1:34374 [200]: GET /js/pengaturan-akun.js
+[Sun Sep 28 06:33:23 2025] 10.132.249.1:34374 Closing

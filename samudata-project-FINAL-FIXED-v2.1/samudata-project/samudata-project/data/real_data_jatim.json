@@ -1,0 +1,246 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kota Surabaya",
+        "code": "3578",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [112.6281, -7.2575],
+          [112.8014, -7.2575],
+          [112.8014, -7.3467],
+          [112.6281, -7.3467],
+          [112.6281, -7.2575]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kota Malang",
+        "code": "3573",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [112.6063, -7.9666],
+          [112.6633, -7.9666],
+          [112.6633, -8.0264],
+          [112.6063, -8.0264],
+          [112.6063, -7.9666]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kabupaten Sidoarjo",
+        "code": "3515",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [112.5000, -7.3000],
+          [112.7500, -7.3000],
+          [112.7500, -7.5500],
+          [112.5000, -7.5500],
+          [112.5000, -7.3000]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kabupaten Gresik",
+        "code": "3525",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [112.3000, -7.0000],
+          [112.7000, -7.0000],
+          [112.7000, -7.3000],
+          [112.3000, -7.3000],
+          [112.3000, -7.0000]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kabupaten Banyuwangi",
+        "code": "3510",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [113.8000, -8.0000],
+          [114.4000, -8.0000],
+          [114.4000, -8.5000],
+          [113.8000, -8.5000],
+          [113.8000, -8.0000]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kabupaten Jember",
+        "code": "3509",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [113.3000, -8.1000],
+          [113.8000, -8.1000],
+          [113.8000, -8.4000],
+          [113.3000, -8.4000],
+          [113.3000, -8.1000]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kabupaten Pasuruan",
+        "code": "3514",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [112.7000, -7.6000],
+          [113.2000, -7.6000],
+          [113.2000, -8.0000],
+          [112.7000, -8.0000],
+          [112.7000, -7.6000]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kabupaten Probolinggo",
+        "code": "3513",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [113.0000, -7.7000],
+          [113.5000, -7.7000],
+          [113.5000, -8.1000],
+          [113.0000, -8.1000],
+          [113.0000, -7.7000]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kabupaten Mojokerto",
+        "code": "3516",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [112.3000, -7.4000],
+          [112.6000, -7.4000],
+          [112.6000, -7.7000],
+          [112.3000, -7.7000],
+          [112.3000, -7.4000]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kabupaten Lamongan",
+        "code": "3524",
+        "files": {
+          "tangkap": 0,
+          "budidaya": 0,
+          "kpp": 0,
+          "pengolahan": 0,
+          "ekspor": 0
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [112.0000, -6.8000],
+          [112.5000, -6.8000],
+          [112.5000, -7.3000],
+          [112.0000, -7.3000],
+          [112.0000, -6.8000]
+        ]]
+      }
+    }
+  ]
+}
+

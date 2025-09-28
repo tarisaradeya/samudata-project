@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Wilayah - Samudata</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        .sidebar {
+            transition: transform 0.3s ease;
+        }
+        .sidebar-hidden {
+            transform: translateX(-100%);
+        }
+        .main-content {
+            transition: margin-left 0.3s ease;
+        }
+        .main-content-expanded {
+            margin-left: 0;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sidebar (same as dashboard) -->
+    <div id="sidebar" class="sidebar fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg">
+        <div class="flex items-center justify-between h-16 px-6 border-b border-gray-200">
+            <div class="flex items-center">
+                <i class="fas fa-water text-blue-600 text-xl mr-2"></i>
+                <span class="font-bold text-lg">Samudata</span>
+            </div>
+            <button id="sidebar-toggle" class="lg:hidden">
+                <i class="fas fa-times text-gray-500"></i>
+            </button>
+        </div>
+        
+        <nav class="mt-6 h-full overflow-y-auto">
+            <div class="px-6 mb-6">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-blue-600"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900">Admin User</p>
+                        <p class="text-xs text-gray-500">Administrator</p>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="space-y-1 px-3 pb-6">
+                <li>
+                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="files.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-folder mr-3"></i>
+                        File Manager
+                    </a>
+                </li>
+                <li>
+                    <a href="map.html" class="flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg">
+                        <i class="fas fa-map mr-3"></i>
+                        Peta Wilayah
+                    </a>
+                </li>
+                <li class="pt-2">
+                    <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">Bidang</p>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-fish mr-3"></i>
+                        Perikanan Tangkap
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-seedling mr-3"></i>
+                        Perikanan Budidaya
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <img src="images/kpp-logo.png" alt="KPP" class="w-4 h-4 mr-3">
+                        KPP
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-industry mr-3"></i>
+                        Pengolahan & Pemasaran
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-shipping-fast mr-3"></i>
+                        Ekspor Perikanan
+                    </a>
+                </li>
+                <li class="pt-2">
+                    <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">Fitur</p>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-history mr-3"></i>
+                        Histori & Log
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-envelope mr-3"></i>
+                        Permintaan File
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-heart mr-3"></i>
+                        Favorit
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-archive mr-3"></i>
+                        Arsip
+                    </a>
+                </li>
+                <li>
+                    <a href="calendar.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-calendar mr-3"></i>
+                        Kalender
+                    </a>
+                </li>
+                <li class="pt-2">
+                    <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">Akun</p>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-user-cog mr-3"></i>
+                        Pengaturan Akun
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html" class="flex items-center px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg">
+                        <i class="fas fa-sign-out-alt mr-3"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="main-content lg:ml-64">
+        <!-- Top Navigation -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+            <div class="flex items-center justify-between h-16 px-6">
+                <div class="flex items-center">
+                    <button id="mobile-menu-toggle" class="lg:hidden mr-4">
+                        <i class="fas fa-bars text-gray-500"></i>
+                    </button>
+                    <h1 class="text-xl font-semibold text-gray-900">Peta Wilayah Jawa Timur</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                        <i class="fas fa-download mr-2"></i>Export Peta
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Map Content -->
+        <main class="p-6">
+            <!-- Map Info -->
+            <div class="bg-white rounded-lg shadow p-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Peta Interaktif</h3>
+                        <p class="text-gray-600 text-sm">Klik pada kabupaten/kota untuk melihat data file per wilayah</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-chart-bar text-green-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Data Real-time</h3>
+                        <p class="text-gray-600 text-sm">Informasi jumlah file dan status terkini untuk setiap bidang</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-filter text-purple-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Filter Bidang</h3>
+                        <p class="text-gray-600 text-sm">Filter tampilan berdasarkan bidang perikanan tertentu</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Container -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">Peta Wilayah DKP Jawa Timur</h3>
+                    <div class="flex items-center space-x-2">
+                        <select id="bidang-filter" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option value="">Semua Bidang</option>
+                            <option value="tangkap">Perikanan Tangkap</option>
+                            <option value="budidaya">Perikanan Budidaya</option>
+                            <option value="kpp">KPP</option>
+                            <option value="pengolahan">Pengolahan & Pemasaran</option>
+                            <option value="ekspor">Ekspor Perikanan</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Map -->
+                <div id="map"></div>
+                
+                <!-- Legend -->
+                <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <h4 class="text-sm font-semibold text-gray-900 mb-3">Legenda</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-xs">
+                        <div class="flex items-center">
+                            <i class="fas fa-fish text-blue-500 text-lg mr-2"></i>
+                            <span>Perikanan Tangkap</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-seedling text-green-500 text-lg mr-2"></i>
+                            <span>Perikanan Budidaya</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-cyan-500 text-lg mr-2"></i>
+                            <span>KPP</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-industry text-orange-500 text-lg mr-2"></i>
+                            <span>Pengolahan & Pemasaran</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-plane text-purple-500 text-lg mr-2"></i>
+                            <span>Ekspor Perikanan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Map-specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupSidebar();
+            setupMapFilters();
+        });
+
+        function setupSidebar() {
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.add('sidebar-hidden');
+                    mainContent.classList.add('main-content-expanded');
+                });
+            }
+
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('sidebar-hidden');
+                    mainContent.classList.toggle('main-content-expanded');
+                });
+            }
+
+            // Make sidebar links functional
+            const sidebarLinks = document.querySelectorAll('#sidebar a[href="#"]');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const linkText = this.textContent.trim();
+                    
+                    if (linkText.includes('Dashboard')) {
+                        window.location.href = 'dashboard.html';
+                    } else if (linkText.includes('File Manager')) {
+                        window.location.href = 'files.html';
+                    } else if (linkText.includes('Kalender')) {
+                        window.location.href = 'calendar.html';
+                    } else {
+                        alert(`Navigasi ke: ${linkText}\n\nFitur ini akan tersedia setelah integrasi database.`);
+                    }
+                });
+            });
+        }
+
+        function setupMapFilters() {
+            const bidangFilter = document.getElementById('bidang-filter');
+            if (bidangFilter) {
+                bidangFilter.addEventListener('change', function() {
+                    const selectedBidang = this.value;
+                    console.log('Filtering map by bidang:', selectedBidang);
+                    // In real implementation, this would filter the map layers
+                    if (selectedBidang) {
+                        alert(`Filter peta berdasarkan: ${this.options[this.selectedIndex].text}\n\nFitur filter akan tersedia setelah integrasi data lengkap.`);
+                    }
+                });
+            }
+
+            // Export button
+            const exportBtn = document.querySelector('button:contains("Export")');
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('button') && e.target.closest('button').textContent.includes('Export')) {
+                    alert('Fitur Export Peta\n\nFitur ini akan memungkinkan Anda untuk:\n• Export peta dalam format PNG/PDF\n• Export data statistik per wilayah\n• Export laporan lengkap\n\nFitur akan tersedia setelah integrasi database.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

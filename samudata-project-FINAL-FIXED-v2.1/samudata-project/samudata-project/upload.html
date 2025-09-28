@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File - Samudata</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .sidebar {
+            transition: transform 0.3s ease;
+        }
+        .sidebar-hidden {
+            transform: translateX(-100%);
+        }
+        .main-content {
+            transition: margin-left 0.3s ease;
+        }
+        .main-content-expanded {
+            margin-left: 0;
+        }
+        .drop-zone {
+            border: 2px dashed #d1d5db;
+            transition: all 0.3s ease;
+        }
+        .drop-zone.dragover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .upload-progress {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg">
+        <div class="flex items-center justify-between h-16 px-6 border-b border-gray-200">
+            <div class="flex items-center">
+                <i class="fas fa-water text-blue-600 text-xl mr-2"></i>
+                <span class="font-bold text-lg">Samudata</span>
+            </div>
+            <button id="sidebar-toggle" class="lg:hidden">
+                <i class="fas fa-times text-gray-500"></i>
+            </button>
+        </div>
+        
+        <nav class="mt-6 h-full overflow-y-auto">
+            <div class="px-6 mb-6">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-blue-600"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900">Admin User</p>
+                        <p class="text-xs text-gray-500">Administrator</p>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="space-y-1 px-3 pb-6">
+                <li>
+                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="files.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-folder mr-3"></i>
+                        File Manager
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="main-content lg:ml-64">
+        <!-- Top Navigation -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+            <div class="flex items-center justify-between h-16 px-6">
+                <div class="flex items-center">
+                    <button id="mobile-menu-toggle" class="lg:hidden mr-4">
+                        <i class="fas fa-bars text-gray-500"></i>
+                    </button>
+                    <button onclick="history.back()" class="mr-4 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1 class="text-xl font-semibold text-gray-900">Upload File</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <main class="p-6 overflow-y-auto max-h-screen">
+            <div class="max-w-6xl mx-auto">
+                <!-- Upload Form -->
+                <div class="bg-white rounded-lg shadow p-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <!-- File Drop Zone -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">File</label>
+                            <div id="dropZone" class="drop-zone p-8 rounded-lg text-center cursor-pointer">
+                                <div id="dropContent">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                                    <p class="text-lg font-medium text-gray-600 mb-2">Drag & drop file di sini</p>
+                                    <p class="text-sm text-gray-500 mb-4">atau klik untuk memilih file</p>
+                                    <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
+                                        Pilih File
+                                    </button>
+                                </div>
+                                <div id="fileInfo" class="hidden">
+                                    <i class="fas fa-file text-4xl text-blue-600 mb-4"></i>
+                                    <p id="fileName" class="text-lg font-medium text-gray-900"></p>
+                                    <p id="fileSize" class="text-sm text-gray-500"></p>
+                                    <button type="button" id="removeFile" class="mt-2 text-red-600 hover:text-red-700 text-sm">
+                                        <i class="fas fa-times mr-1"></i>Hapus File
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="file" id="fileInput" name="file" class="hidden" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif">
+                        </div>
+
+                        <!-- Upload Progress -->
+                        <div id="uploadProgress" class="upload-progress mb-6">
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            <p id="progressText" class="text-sm text-gray-600 mt-2">Uploading...</p>
+                        </div>
+
+                        <!-- Form Fields -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Judul File *</label>
+                                <input type="text" id="title" name="title" required 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">Bidang *</label>
+                                <select id="category_id" name="category_id" required 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="">Pilih Bidang</option>
+                                    <option value="1">Perikanan Tangkap</option>
+                                    <option value="2">Perikanan Budidaya</option>
+                                    <option value="3">KPP</option>
+                                    <option value="4">Pengolahan & Pemasaran</option>
+                                    <option value="5">Ekspor Perikanan</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="region_id" class="block text-sm font-medium text-gray-700 mb-2">Wilayah *</label>
+                                <select id="region_id" name="region_id" required 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="">Pilih Wilayah</option>
+                                    <option value="bangkalan">Kabupaten Bangkalan</option>
+                                    <option value="banyuwangi">Kabupaten Banyuwangi</option>
+                                    <option value="blitar">Kabupaten Blitar</option>
+                                    <option value="bojonegoro">Kabupaten Bojonegoro</option>
+                                    <option value="bondowoso">Kabupaten Bondowoso</option>
+                                    <option value="gresik">Kabupaten Gresik</option>
+                                    <option value="jember">Kabupaten Jember</option>
+                                    <option value="jombang">Kabupaten Jombang</option>
+                                    <option value="kediri">Kabupaten Kediri</option>
+                                    <option value="lamongan">Kabupaten Lamongan</option>
+                                    <option value="lumajang">Kabupaten Lumajang</option>
+                                    <option value="madiun">Kabupaten Madiun</option>
+                                    <option value="magetan">Kabupaten Magetan</option>
+                                    <option value="malang">Kabupaten Malang</option>
+                                    <option value="mojokerto">Kabupaten Mojokerto</option>
+                                    <option value="nganjuk">Kabupaten Nganjuk</option>
+                                    <option value="ngawi">Kabupaten Ngawi</option>
+                                    <option value="pacitan">Kabupaten Pacitan</option>
+                                    <option value="pamekasan">Kabupaten Pamekasan</option>
+                                    <option value="pasuruan">Kabupaten Pasuruan</option>
+                                    <option value="ponorogo">Kabupaten Ponorogo</option>
+                                    <option value="probolinggo">Kabupaten Probolinggo</option>
+                                    <option value="sampang">Kabupaten Sampang</option>
+                                    <option value="sidoarjo">Kabupaten Sidoarjo</option>
+                                    <option value="situbondo">Kabupaten Situbondo</option>
+                                    <option value="sumenep">Kabupaten Sumenep</option>
+                                    <option value="trenggalek">Kabupaten Trenggalek</option>
+                                    <option value="tuban">Kabupaten Tuban</option>
+                                    <option value="tulungagung">Kabupaten Tulungagung</option>
+                                    <option value="batu">Kota Batu</option>
+                                    <option value="blitar_kota">Kota Blitar</option>
+                                    <option value="kediri_kota">Kota Kediri</option>
+                                    <option value="madiun_kota">Kota Madiun</option>
+                                    <option value="malang_kota">Kota Malang</option>
+                                    <option value="mojokerto_kota">Kota Mojokerto</option>
+                                    <option value="pasuruan_kota">Kota Pasuruan</option>
+                                    <option value="probolinggo_kota">Kota Probolinggo</option>
+                                    <option value="surabaya">Kota Surabaya</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="upload_date" class="block text-sm font-medium text-gray-700 mb-2">Tanggal</label>
+                                <input type="date" id="upload_date" name="upload_date" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label for="uploader_name" class="block text-sm font-medium text-gray-700 mb-2">Nama Pengunggah *</label>
+                                <input type="text" id="uploader_name" name="uploader_name" required 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
+                            <textarea id="description" name="description" rows="3" 
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                      placeholder="Deskripsi singkat tentang file ini..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="mt-8 flex justify-end space-x-4">
+                            <button type="button" onclick="history.back()" 
+                                    class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                Batal
+                            </button>
+                            <button type="submit" id="submitBtn" 
+                                    class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                                <i class="fas fa-upload mr-2"></i>Upload File
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-md mx-4">
+            <div class="text-center">
+                <i class="fas fa-check-circle text-4xl text-green-600 mb-4"></i>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Upload Berhasil!</h3>
+                <p class="text-gray-600 mb-4">File telah berhasil diunggah ke sistem.</p>
+                <div class="flex justify-center space-x-4">
+                    <button onclick="location.href='dashboard.html'" 
+                            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+                        Kembali ke Dashboard
+                    </button>
+                    <button onclick="location.reload()" 
+                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                        Upload Lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const dropContent = document.getElementById('dropContent');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const removeFile = document.getElementById('removeFile');
+            const uploadForm = document.getElementById('uploadForm');
+            const uploadProgress = document.getElementById('uploadProgress');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const submitBtn = document.getElementById('submitBtn');
+            const successModal = document.getElementById('successModal');
+
+            // Set default date
+            document.getElementById('upload_date').value = new Date().toISOString().split('T')[0];
+
+            // Drag and drop functionality
+            dropZone.addEventListener('click', () => fileInput.click());
+            dropZone.addEventListener('dragover', handleDragOver);
+            dropZone.addEventListener('dragleave', handleDragLeave);
+            dropZone.addEventListener('drop', handleDrop);
+            fileInput.addEventListener('change', handleFileSelect);
+            removeFile.addEventListener('click', clearFile);
+
+            function handleDragOver(e) {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            }
+
+            function handleDragLeave(e) {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+            }
+
+            function handleDrop(e) {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    displayFileInfo(files[0]);
+                }
+            }
+
+            function handleFileSelect(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    displayFileInfo(file);
+                }
+            }
+
+            function displayFileInfo(file) {
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                dropContent.classList.add('hidden');
+                fileInfo.classList.remove('hidden');
+            }
+
+            function clearFile() {
+                fileInput.value = '';
+                dropContent.classList.remove('hidden');
+                fileInfo.classList.add('hidden');
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            // Form submission
+            uploadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!fileInput.files[0]) {
+                    alert('Silakan pilih file terlebih dahulu');
+                    return;
+                }
+
+                const formData = new FormData(uploadForm);
+                
+                // Show progress
+                uploadProgress.style.display = 'block';
+                submitBtn.disabled = true;
+
+                // Simulate upload progress (replace with actual upload)
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 15;
+                    if (progress > 100) progress = 100;
+                    
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = `Uploading... ${Math.round(progress)}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            uploadProgress.style.display = 'none';
+                            submitBtn.disabled = false;
+                            successModal.classList.remove('hidden');
+                            successModal.classList.add('flex');
+                        }, 500);
+                    }
+                }, 200);
+
+                // In a real application, you would send the formData to the server:
+                // fetch('api/upload.php', {
+                //     method: 'POST',
+                //     body: formData
+                // }).then(response => response.json())
+                //   .then(data => {
+                //       if (data.success) {
+                //           // Show success modal
+                //       } else {
+                //           // Show error message
+                //       }
+                //   });
+            });
+
+            // Sidebar functionality
+            const sidebar = document.getElementById('sidebar');
+            const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('sidebar-hidden');
+                });
+            }
+            
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.add('sidebar-hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

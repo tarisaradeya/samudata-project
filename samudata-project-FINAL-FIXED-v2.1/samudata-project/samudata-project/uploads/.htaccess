@@ -1,0 +1,35 @@
+# Protect uploads directory
+# Allow only specific file types to be accessed directly
+
+# Deny access to PHP files in uploads
+<Files "*.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Deny access to executable files
+<FilesMatch "\.(exe|bat|sh|com|scr|pif)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow only safe file types
+<FilesMatch "\.(pdf|doc|docx|xls|xlsx|ppt|pptx|jpg|jpeg|png|gif|zip|rar)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# Set proper MIME types for downloads
+AddType application/pdf .pdf
+AddType application/msword .doc
+AddType application/vnd.openxmlformats-officedocument.wordprocessingml.document .docx
+AddType application/vnd.ms-excel .xls
+AddType application/vnd.openxmlformats-officedocument.spreadsheetml.sheet .xlsx
+AddType application/vnd.ms-powerpoint .ppt
+AddType application/vnd.openxmlformats-officedocument.presentationml.presentation .pptx
+AddType image/jpeg .jpg .jpeg
+AddType image/png .png
+AddType image/gif .gif
+AddType application/zip .zip
+AddType application/x-rar-compressed .rar
+
